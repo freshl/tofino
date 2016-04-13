@@ -34,6 +34,8 @@ class Location extends Component {
     if (ev.keyCode === 13) { // enter
       const location = fixURL(ev.target.value);
       const webview = getCurrentWebView(ev.target.ownerDocument);
+      // remove focus from urlbar
+      ev.target.blur();
       webview.setAttribute('src', location);
     } else if (ev.keyCode === 27) { // esc
       // Restore back to page location and reset userTyped
@@ -62,7 +64,7 @@ class Location extends Component {
         <input id="urlbar-input" type="text" ref="input"
           value={value}
           onChange={onLocationChange}
-          clickHandler={ev => ev.target.select()}
+          onFocus={ev => ev.target.select()}
           onContextMenu={onLocationContextMenu}
           onKeyDown={this.handleKeyDown} />
 
